@@ -1,6 +1,6 @@
-document.querySelector('#movies').addEventListener('click', function () {
+window.onload = function () {
     getData();
-});
+};
 
 function getData() {
     console.log('Movies!');
