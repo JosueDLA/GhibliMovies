@@ -43,7 +43,21 @@ function getPoster(data) {
         api.onreadystatechange = function () {
             if (this.status == 200 && this.readyState == 4) {
                 let poster = JSON.parse(this.responseText);
-                let image = imageUrl + poster.results[0].poster_path;
+                let image;
+
+                //will fix this more elegantly in the future trust me :D
+                if (film == 'Grave of the Fireflies') {
+                    image = imageUrl + poster.results[1].poster_path;
+                }
+                else if (film == 'Only Yesterday') {
+                    image = imageUrl + poster.results[2].poster_path;
+                }
+                else if (film == 'Spirited Away') {
+                    image = imageUrl + poster.results[1].poster_path;
+                }
+                else {
+                    image = imageUrl + poster.results[0].poster_path;
+                }
 
                 let display = document.querySelector('#display');
                 display.innerHTML += `
