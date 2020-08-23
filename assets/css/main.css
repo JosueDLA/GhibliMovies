@@ -9,6 +9,10 @@ body{
     color: white;
 }
 
+.card-body{
+    color: black;
+}
+
 nav{
     background-color: #101318 !important;
     color: white;
