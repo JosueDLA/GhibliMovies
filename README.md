@@ -1,0 +1,1 @@
+Page to display all Studio Ghibli movies usign Ghibli API and IMDb API
