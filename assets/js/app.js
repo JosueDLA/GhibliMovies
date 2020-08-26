@@ -46,7 +46,7 @@ function getMovies(data) {
                 for (let i = 0; i < poster.results.length; i++) {
                     let language = poster.results[i].original_language;
                     let genres = poster.results[i].genre_ids;
-                    let image = 'http://image.tmdb.org/t/p/w500/' + poster.results[i].poster_path;
+                    let image = 'https://image.tmdb.org/t/p/w500/' + poster.results[i].poster_path;
                     let movieId = poster.results[i].id;
 
                     console.log(image);
@@ -85,4 +85,3 @@ function getMovieInfo(id) {
 
     let display = document.querySelector('#display');
 }
-
