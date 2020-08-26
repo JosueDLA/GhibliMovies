@@ -1,16 +1,16 @@
 window.onload = function () {
+    console.log("Ghibli Movies :D")
     getData();
 };
 
 function getData() {
-    console.log('Movies!');
-    let url = 'https://ghibliapi.herokuapp.com/films';
+    let ghibliUrl = 'https://ghibliapi.herokuapp.com/films';
 
-    const api = new XMLHttpRequest();
-    api.open('GET', url, true);
-    api.send();
+    const ghibliApi = new XMLHttpRequest();
+    ghibliApi.open('GET', ghibliUrl, true);
+    ghibliApi.send();
 
-    api.onreadystatechange = function () {
+    ghibliApi.onreadystatechange = function () {
         if (this.status == 200 && this.readyState == 4) {
             let data = JSON.parse(this.responseText);
 
@@ -18,65 +18,71 @@ function getData() {
             display.innerHTML = '';
 
             for (let i = 0; i < data.length; i++) {
-                getPoster(data[i])
+                getMovies(data[i])
             }
         }
     }
 }
 
-function getPoster(data) {
-    console.log('Poster!');
-    let film = data.title
+function getMovies(data) {
+    let film = data.title;
 
     if (film == '') {
         console.error('Film is empty');
-        return 'https://i2.wp.com/www.theatrecr.org/wp-content/uploads/2016/01/poster-placeholder.png?ssl=1';
     }
     else {
-        let url = 'https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=' + film.replace(/ /g, "%20");
-        let imageUrl = 'http://image.tmdb.org/t/p/w500'
+        let posterUrl = 'https://api.themoviedb.org/3/search/movie?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=' + film.replace(/ /g, "%20");
 
-        const api = new XMLHttpRequest();
-        api.open('GET', url, true);
-        api.send();
+        const posterApi = new XMLHttpRequest();
+        posterApi.open('GET', posterUrl, true);
+        posterApi.send();
 
-        api.onreadystatechange = function () {
+        posterApi.onreadystatechange = function () {
             if (this.status == 200 && this.readyState == 4) {
                 let poster = JSON.parse(this.responseText);
-                let image;
 
-                //will fix this more elegantly in the future trust me :D
-                if (film == 'Grave of the Fireflies') {
-                    image = imageUrl + poster.results[1].poster_path;
-                }
-                else if (film == 'Only Yesterday') {
-                    image = imageUrl + poster.results[2].poster_path;
-                }
-                else if (film == 'Spirited Away') {
-                    image = imageUrl + poster.results[1].poster_path;
-                }
-                else {
-                    image = imageUrl + poster.results[0].poster_path;
-                }
+                //Animation id:16
+                //Original Language: japanese
+                for (let i = 0; i < poster.results.length; i++) {
+                    let language = poster.results[i].original_language;
+                    let genres = poster.results[i].genre_ids;
+                    let image = 'http://image.tmdb.org/t/p/w500/' + poster.results[i].poster_path;
+                    let movieId = poster.results[i].id;
 
-                let display = document.querySelector('#display');
-                display.innerHTML += `
-                    <div class="col-md-4">
-                        <div class="card md-4 box-shadow">
-                            <img class="card-img-top"
-                                src="${image}"
-                                alt="Movie">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    ${film}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                    console.log(image);
 
-
+                    if (language == "ja" && genres.includes(16)) {
+                        display.innerHTML += `
+                            <div class="col-md-4 movie-item mb-4">
+                                <div class="card box-shadow h-100">
+                                    <figure>
+                                        <img class="card-img-top" src="${image}" alt="${film}">
+                                        <a href="#" id="${movieId}" class="link-details"><i class="fas fa-info"></i></a>
+                                    </figure>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            ${film}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>`;
+                        break;
+                    }
+                }
             }
         }
     }
 }
+
+function getMovieInfo(id) {
+    image = imageUrl + poster.results[i].poster_path;
+    let movieId = poster.result[i].id;
+    let movieUrl = 'https://api.themoviedb.org/3/movie/' + movieId + '?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb';
+
+    const movieApi = new XMLHttpRequest();
+    movieApi.open('GET', movieUrl, true);
+    movieApi.send();
+
+    let display = document.querySelector('#display');
+}
+

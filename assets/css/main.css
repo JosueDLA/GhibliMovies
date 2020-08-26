@@ -13,6 +13,11 @@ body{
     color: black;
 }
 
+.card-text{
+    text-align: center;
+    font-size: 1.2rem;
+}
+
 nav{
     background-color: #101318 !important;
     color: white;
@@ -24,6 +29,55 @@ nav{
 
 .nav-link{
     color: white !important;
+}
+
+/* Movie Card */
+.movie-item figure {
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+}
+
+.movie-item figure:hover img {
+    opacity: 0.4;
+    transition-duration: 300ms;
+}
+
+.movie-item figure .link-details {
+    position: absolute;
+    display: inline-block;
+    opacity: 0;
+    line-height: 1;
+    text-align: center;
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border-radius: 50%;
+    transition: 0.2s linear;
+}
+
+.movie-item figure .link-details i {
+    padding-top: 6px;
+    font-size: 22px;
+    color: #333;
+}
+
+.movie-item figure .link-details:hover {
+    background: #9d7eb0;
+}
+
+.movie-item figure .link-details:hover i {
+    color: #fff;
+}
+
+.movie-item figure .link-details {
+    top: calc(50% - 18px);
+}
+
+.movie-item figure:hover .link-details {
+    opacity: 1;
+    right: calc(50% - 20px);
 }
 
 /*GitHub Corner*/
