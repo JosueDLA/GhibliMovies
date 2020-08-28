@@ -49,7 +49,7 @@ function getMovies(movie) {
 
                     if (language == "ja" && genres.includes(16)) {
                         display.innerHTML += `
-                            <div class="col-md-4 movie-item mb-4">
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 movie-item mb-4">
                                 <div class="card box-shadow h-100">
                                     <figure>
                                         <img class="card-img-top" src="${image}" alt="${film}">
@@ -98,21 +98,34 @@ function getMovieInfo(movieId) {
             var original = document.querySelector('#original');
             var genres = document.querySelector('#genres');
             var sinopsis = document.querySelector('#sinopsis');
-            var director = document.querySelector('#director');
             var usrScore = document.querySelector('#usrScore');
             var date = document.querySelector('#date');
             var duration = document.querySelector('#duration');
+
+            let movieGenres = '';
+            for (let i in movie.genres) {
+                if (i == (movie.genres.length - 1)) {
+                    movieGenres += movie.genres[i].name;
+                } else {
+                    movieGenres += movie.genres[i].name + ', ';
+                }
+            }
+
+            var time = function (n) {
+                var minutes = n % 60;
+                var hours = (n - minutes) / 60;
+                return hours + 'h ' + minutes + 'm';
+            };
 
             poster.src = 'https://image.tmdb.org/t/p/w500/' + movie.poster_path;
             modalTitle.innerHTML = movie.title;
             title.innerHTML = movie.title;
             original.innerHTML = movie.original_title;
-            genres.innerHTML = 'tbd';
+            genres.innerHTML = movieGenres;
             sinopsis.innerHTML = movie.overview;
-            director.innerHTML = 'tbd';
-            usrScore.innerHTML = movie.vote_average + '%';
+            usrScore.innerHTML = (movie.vote_average * 10) + '%';
             date.innerHTML = movie.release_date;
-            duration.innerHTML = movie.runtime;
+            duration.innerHTML = time(movie.runtime);
 
             $('#movieModal').modal('show');
         }

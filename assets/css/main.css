@@ -81,7 +81,7 @@ nav{
 }
 
 /* Modal */
-#movieModal{
+#movieModal, #aboutModal{
     color: #000;
 }
 
